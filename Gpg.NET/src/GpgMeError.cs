@@ -8,6 +8,8 @@ namespace Gpg.NET
 	/// </summary>
 	public enum GpgMeError
 	{
+		// Disable compiler warnings about missing XML documentation.
+#pragma warning disable 1591
 		GPG_ERR_NO_ERROR = 0,
 		GPG_ERR_GENERAL = 1,
 		GPG_ERR_UNKNOWN_PACKET = 2,
@@ -409,5 +411,6 @@ namespace Gpg.NET
 		GPG_ERR_UNKNOWN_ERRNO = 16382,
 		GPG_ERR_EOF = 16383,
 		GPG_ERR_CODE_DIM
+#pragma warning restore 1591
 	}
 }
