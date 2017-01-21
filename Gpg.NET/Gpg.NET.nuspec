@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <!-- The identifier that must be unique within the hosting gallery -->
+    <id>Gpg.NET</id>
+    <packageTypes>
+        <packageType name="Dependency" />
+    </packageTypes>
+
+    <!-- The package version number that is used when resolving dependencies -->
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>baggykiin</authors>
+    <owners>baggykiin</owners>
+    <licenseUrl>http://github.com/baggykiin/gpg.NET</licenseUrl>
+    <projectUrl>http://github.com/baggykiin/gpg.NET/blob/master/LICENCE</projectUrl>
+    <!-- <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl> -->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A .NET wrapper for GpgME</description>
+    <releaseNotes>First release</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>GPG GnuPG GpgME PGP</tags>
+  </metadata>
+</package>
