@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GpgContextExtensions.cs" />
     <Compile Include="src\GpgBuffer.cs" />
     <Compile Include="src\EngineInfo.cs" />
     <Compile Include="src\ErrorHandler.cs" />
