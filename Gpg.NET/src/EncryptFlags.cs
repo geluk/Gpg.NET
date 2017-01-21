@@ -3,8 +3,12 @@
 	/// <summary>
 	/// A set of flags representing encryption settings used by GPG.
 	/// </summary>
-	public enum GpgMeEncryptFlags
+	public enum EncryptFlags
 	{
+		/// <summary>
+		/// Do not set any encryption flags.
+		/// </summary>
+		None = 0,
 		/// <summary>
 		/// Trust all recipients, regardless of their validity.
 		/// </summary>

@@ -51,7 +51,8 @@
     <Compile Include="src\FileGpgBuffer.cs" />
     <Compile Include="src\GpgContext.cs" />
     <Compile Include="src\GpgKey.cs" />
-    <Compile Include="src\GpgMeEncryptFlags.cs" />
+    <Compile Include="src\GpgKeyNotFoundException.cs" />
+    <Compile Include="src\EncryptFlags.cs" />
     <Compile Include="src\GpgMeError.cs" />
     <Compile Include="src\GpgMeException.cs" />
     <Compile Include="src\GpgNetException.cs" />
@@ -60,7 +61,7 @@
     <Compile Include="src\GpgSubkey.cs" />
     <Compile Include="src\Interop\AnsiCharPtrMarshaler.cs" />
     <Compile Include="src\Interop\GpgMeHelper.cs" />
-    <Compile Include="src\GpgMeKeylistMode.cs" />
+    <Compile Include="src\GpgKeylistMode.cs" />
     <Compile Include="src\PublicKeyAlgorithm.cs" />
     <Compile Include="src\Interop\GpgMeKeySig.cs" />
     <Compile Include="src\Interop\GpgMeSigNotation.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="src\Interop\GpgMeTofuInfo.cs" />
     <Compile Include="src\Interop\GpgMeUserId.cs" />
     <Compile Include="src\GpgNet.cs" />
-    <Compile Include="src\GpgMeValidity.cs" />
+    <Compile Include="src\GpgValidity.cs" />
     <Compile Include="src\Interop\GpgMeWrapper.cs" />
     <Compile Include="src\GpgUserId.cs" />
     <Compile Include="src\Interop\GCC\SeekPosition.cs" />

@@ -21,6 +21,21 @@ namespace Gpg.NET
 		// TODO: Keylist mode selection: https://www.gnupg.org/documentation/manuals/gpgme/Key-Listing-Mode.html#Key-Listing-Mode
 		// TODO: Key creation: https://www.gnupg.org/documentation/manuals/gpgme/Generating-Keys.html#Generating-Keys
 
+		/// <summary>
+		/// Gets or sets the key listing mode currently in use by this <see cref="GpgContext"/>.
+		/// </summary>
+		public GpgKeylistMode KeylistMode
+		{
+			get
+			{
+				return GpgMeWrapper.gpgme_get_keylist_mode(Handle);
+			}
+			set
+			{
+				ErrorHandler.Check(GpgMeWrapper.gpgme_set_keylist_mode(Handle, value));
+			}
+		}
+
 		internal GpgContext(IntPtr handle)
 		{
 			Handle = handle;
@@ -67,39 +82,53 @@ namespace Gpg.NET
 		/// </summary>
 		/// <param name="plain">A DataBuffer containing the plaintext data to be encrypted.</param>
 		/// <param name="recipients">The GPG keys for which the data should be encrypted.</param>
+		/// <param name="encryptFlags">The encryption flags to be used.</param>
 		/// <returns>A DataBuffer containing the encrypted data.</returns>
-		public GpgBuffer Encrypt(GpgBuffer plain, IEnumerable<GpgKey> recipients)
+		public GpgBuffer Encrypt(GpgBuffer plain, IEnumerable<GpgKey> recipients, EncryptFlags encryptFlags = EncryptFlags.None)
 		{
 			// Transform the recipient list into a list of GpgME key handles
 			var rcpHandles = recipients.Select(rcp => rcp.Handle).ToArray();
 			var output = MemoryGpgBuffer.Create();
-			ErrorHandler.Check(GpgMeWrapper.gpgme_op_encrypt(Handle, rcpHandles, GpgMeEncryptFlags.AlwaysTrust, plain.Handle, output.Handle));
+			ErrorHandler.Check(GpgMeWrapper.gpgme_op_encrypt(Handle, rcpHandles, encryptFlags, plain.Handle, output.Handle));
 			output.Position = 0;
 			return output;
 		}
 
 		/// <summary>
-		/// Returns all keys matching the given search parameters.
-		/// If no parameters are given, all keys in the keyring will be returned.
+		/// Gets the GPG key associated with the given key ID.
+		/// This method will throw an exception if the given key ID matches zero or multiple keys.
+		/// </summary>
+		/// <param name="keyId">The key ID of the requested GPG key.</param>
+		/// <exception cref="GpgKeyNotFoundException">Thrown when the given key ID matches zero or multiple keys.
+		/// </exception>
+		public GpgKey GetKey(string keyId)
+		{
+			var matches = GpgMeHelper.FindKeys(this, keyId, false).ToArray();
+			if (matches.Length == 0) throw new GpgKeyNotFoundException("No matches were returned for the given key ID");
+			if (matches.Length > 1) throw new GpgKeyNotFoundException("Multiple matches were found for the given key ID");
+			return matches[0];
+		}
+
+		/// <summary>
+		/// Searches for keys matching the given search parameters.
 		/// </summary>
 		/// <param name="pattern">One or more GPG key IDs to search for. The default value (null) matches all keys.</param>
 		/// <param name="privateOnly">True if only GPG keys for which a private key is available should be returned, false otherwise.</param>
 		/// <returns>A list of GPG keys matching the given search parameters.</returns>
 		public IEnumerable<GpgKey> FindKeys(string pattern = null, bool privateOnly = false)
 		{
-			return GpgMeHelper.GetKeys(this, pattern, privateOnly);
+			return GpgMeHelper.FindKeys(this, pattern, privateOnly);
 		}
 
 		/// <summary>
-		/// Returns the first key matching the given search parameters.
-		/// If no parameters are given, all keys in the keyring will be returned.
+		/// Searches for keys matching the given search parameters, returning the first matching key.
 		/// </summary>
 		/// <param name="pattern">One or more GPG key IDs to search for. The default value (null) matches all keys.</param>
 		/// <param name="privateOnly">True if only GPG keys for which a private key is available should be returned, false otherwise.</param>
-		/// <returns>The first GPG key that matches the given search parameters, or null if there are no matches.</returns>
-		public GpgKey FindKey(string pattern = null, bool privateOnly = false)
+		/// <returns>Returns the first GPG key that matches the given search parameters, or null if there are no matches.</returns>
+		public GpgKey FindKey(string pattern, bool privateOnly = false)
 		{
-			return FindKeys(pattern, privateOnly).FirstOrDefault();
+			return GpgMeHelper.FindKey(this, pattern, privateOnly);
 		}
 
 		/// <summary>

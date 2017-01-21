@@ -32,9 +32,8 @@ namespace Gpg.NET.Interop
 
 		/// <summary>
 		/// Searches the keyring for all keys that match the given search parameters.
-		/// <returns>A list of matching GPG keys</returns>
 		/// </summary>
-		public static IEnumerable<GpgKey> GetKeys(GpgContext ctx, string pattern = null, bool privateOnly = false)
+		public static IEnumerable<GpgKey> FindKeys(GpgContext ctx, string pattern, bool privateOnly)
 		{
 			// Start the key listing operation
 			ErrorHandler.Check(GpgMeWrapper.gpgme_op_keylist_start(ctx.Handle, pattern, privateOnly));
@@ -42,9 +41,9 @@ namespace Gpg.NET.Interop
 			// Grab the first key
 			IntPtr keyPtr;
 			var result = GpgMeWrapper.gpgme_op_keylist_next(ctx.Handle, out keyPtr);
-			// If the operation succeeds, keyPtr will have been assigned a value
 			while (result == GpgMeError.GPG_ERR_NO_ERROR)
 			{
+				// If the operation succeeds, keyPtr will have been assigned a value.
 				// Grab the GpgMeKey structure belonging to the pointer
 				var key = Marshal.PtrToStructure<GpgMeKey>(keyPtr);
 
@@ -55,6 +54,25 @@ namespace Gpg.NET.Interop
 			}
 			// End the key listing operation
 			ErrorHandler.Check(GpgMeWrapper.gpgme_op_keylist_end(ctx.Handle));
+		}
+
+		/// <summary>
+		/// Searches the keyring for all keys that match the given search parameters,
+		/// and stops the search as soon as the first match is found.
+		/// </summary>
+		public static GpgKey FindKey(GpgContext ctx, string pattern, bool privateOnly)
+		{
+			ErrorHandler.Check(GpgMeWrapper.gpgme_op_keylist_start(ctx.Handle, pattern, privateOnly));
+			// Grab the first key
+			IntPtr keyPtr;
+			var result = GpgMeWrapper.gpgme_op_keylist_next(ctx.Handle, out keyPtr);
+			if (result != GpgMeError.GPG_ERR_NO_ERROR) return null;
+			// If the operation succeeds, keyPtr will have been assigned a value.
+			// Grab the GpgMeKey structure belonging to the pointer
+			var key = Marshal.PtrToStructure<GpgMeKey>(keyPtr);
+
+			// Turn the GpgMeKey into a GpgKey (resolves the subkeys and uids linked lists)
+			return key.ToGpgKey(keyPtr);
 		}
 
 		public static int Read(IntPtr dh, byte[] buffer, int offset, int count)

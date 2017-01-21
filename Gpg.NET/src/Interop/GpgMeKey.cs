@@ -16,12 +16,12 @@ namespace Gpg.NET.Interop
 		public string IssuerSerial;
 		public string IssuerName;
 		public string ChainId;
-		public GpgMeValidity OwnerTrust;
+		public GpgValidity OwnerTrust;
 		public IntPtr Subkeys;
 		public IntPtr Uids;
 		public IntPtr lastSubkey;
 		public IntPtr lastUid;
-		public GpgMeKeylistMode KeylistMode;
+		public GpgKeylistMode KeylistMode;
 		public string Fingerprint;
 
 		public GpgKey ToGpgKey(IntPtr handle)

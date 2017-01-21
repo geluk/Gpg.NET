@@ -4,7 +4,7 @@ namespace Gpg.NET
 	/// <summary>
 	/// Enumerates key validity or trust.
 	/// </summary>
-	public enum GpgMeValidity
+	public enum GpgValidity
 	{
 		/// <summary>
 		/// Unknown validity.

@@ -51,24 +51,30 @@ namespace Gpg.NET.Interop
 		public static extern int gpgme_data_seek(IntPtr dh, int offset, SeekPosition whence);
 
 		// CONTEXTS
-
+		//		create/delete
 		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
 		public static extern GpgMeError gpgme_new(out IntPtr ctx);
 
 		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
 		public static extern void gpgme_release(IntPtr ctx);
-
+		//		encrypt/decrypt
 		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
 		public static extern GpgMeError gpgme_op_decrypt(IntPtr ctx, IntPtr cipher, IntPtr plain);
 
 		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
-		public static extern GpgMeError gpgme_op_encrypt(IntPtr ctx, IntPtr[] recp, GpgMeEncryptFlags flags, IntPtr plain, IntPtr cipher);
-
+		public static extern GpgMeError gpgme_op_encrypt(IntPtr ctx, IntPtr[] recp, EncryptFlags flags, IntPtr plain, IntPtr cipher);
+		//		engine info
 		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
 		public static extern IntPtr gpgme_ctx_get_engine_info(IntPtr ctx);
 
 		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
 		public static extern void gpgme_ctx_set_engine_info(IntPtr ctx, GpgMeProtocol proto, string file_name, string home_dir);
+		//		keylist mode
+		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
+		public static extern GpgKeylistMode gpgme_get_keylist_mode(IntPtr ctx);
+
+		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
+		public static extern GpgMeError gpgme_set_keylist_mode(IntPtr ctx, GpgKeylistMode mode);
 
 		// LISTING KEYS
 

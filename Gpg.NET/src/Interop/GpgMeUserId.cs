@@ -8,7 +8,7 @@ namespace Gpg.NET.Interop
 	{
 		public IntPtr Next;
 		public UInt32 Flags;
-		public GpgMeValidity Validity;
+		public GpgValidity Validity;
 		public string Uid;
 		public string Name;
 		public string Email;

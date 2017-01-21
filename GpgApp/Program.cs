@@ -41,6 +41,8 @@ namespace GpgApp
 			// Create a new GPG context
 			var context = GpgContext.CreateContext();
 
+			context.KeylistMode = context.KeylistMode | GpgKeylistMode.WithSecret;
+
 			// Print GPG keys
 			var keys = context.FindKeys().ToArray();
 			foreach (var key in keys)

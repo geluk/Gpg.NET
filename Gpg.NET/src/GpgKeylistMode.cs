@@ -1,9 +1,12 @@
+using System;
+
 namespace Gpg.NET
 {
 	/// <summary>
 	/// Specifies the behaviour of a key listing operation.
 	/// </summary>
-	public enum GpgMeKeylistMode
+	[Flags]
+	public enum GpgKeylistMode
 	{
 		/// <summary>
 		/// Unknown or no options set.
@@ -27,6 +30,7 @@ namespace Gpg.NET
 		SigNotations = 8,
 		/// <summary>
 		/// Include information about the presence of a corresponding secret key in a public key listing.
+		/// A public key listing with this mode is slower than a standard listing but can be used instead of a second run to list the secret keys.
 		/// </summary>
 		WithSecret = 16,
 		/// <summary>

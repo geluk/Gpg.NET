@@ -12,7 +12,7 @@ namespace Gpg.NET
 		/// <summary>
 		/// Gets the key listing mode that was active when this key was retrieved.
 		/// </summary>
-		public GpgMeKeylistMode KeylistMode { get; internal set; }
+		public GpgKeylistMode KeylistMode { get; internal set; }
 		/// <summary>
 		/// Gets a value indicating whether the key has been revoked by its owner.
 		/// </summary>
@@ -74,7 +74,7 @@ namespace Gpg.NET
 		/// <summary>
 		/// If <see cref="Protocol"/> is Protocol.OpenPgp, gets the owner trust for this key.
 		/// </summary>
-		public GpgMeValidity OwnerTrust { get; internal set; }
+		public GpgValidity OwnerTrust { get; internal set; }
 		/// <summary>
 		/// Gets the subkeys belonging to the current <see cref="GpgKey"/>.
 		/// </summary>

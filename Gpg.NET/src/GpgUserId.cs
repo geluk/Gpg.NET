@@ -9,7 +9,7 @@ namespace Gpg.NET
 		/// <summary>
 		/// Gets the validity of the current User ID.
 		/// </summary>
-		public GpgMeValidity Validity { get; internal set; }
+		public GpgValidity Validity { get; internal set; }
 		/// <summary>
 		/// Gets the User ID string.
 		/// </summary>

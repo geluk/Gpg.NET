@@ -5,7 +5,7 @@ namespace Gpg.NET
 	/// <summary>
 	/// Wraps a GpgME error code.
 	/// </summary>
-	public class GpgMeException : Exception
+	public class GpgMeException : GpgNetException
 	{
 		/// <summary>
 		/// The name of the GpgME error returned.
