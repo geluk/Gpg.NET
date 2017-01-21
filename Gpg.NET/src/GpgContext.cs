@@ -99,7 +99,8 @@ namespace Gpg.NET
 		/// This method will throw an exception if the given key ID matches zero or multiple keys.
 		/// </summary>
 		/// <param name="keyId">The key ID of the requested GPG key.</param>
-		/// <exception cref="GpgKeyNotFoundException">Thrown when the given key ID matches zero or multiple keys.
+		/// <exception cref="GpgKeyNotFoundException">
+		/// Thrown when the given key ID matches zero or multiple keys.
 		/// </exception>
 		public GpgKey GetKey(string keyId)
 		{
@@ -107,6 +108,18 @@ namespace Gpg.NET
 			if (matches.Length == 0) throw new GpgKeyNotFoundException("No matches were returned for the given key ID");
 			if (matches.Length > 1) throw new GpgKeyNotFoundException("Multiple matches were found for the given key ID");
 			return matches[0];
+		}
+		/// <summary>
+		/// Gets the GPG keys associated with the given key IDs.
+		/// This method will throw an exception if any of the given key IDs matches zero or multiple keys.
+		/// </summary>
+		/// <param name="keyIds">The key IDs of the requested GPG keys.</param>
+		/// <exception cref="GpgKeyNotFoundException">
+		/// Thrown when one of the given key IDs matches zero or multiple keys.
+		/// </exception>
+		public IEnumerable<GpgKey> GetKeys(IEnumerable<string> keyIds)
+		{
+			return keyIds.Select(GetKey);
 		}
 
 		/// <summary>
