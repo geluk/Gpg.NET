@@ -1,6 +1,2 @@
 language: csharp
 solution: Gpg.NET.sln
-before_script:
- - set_version.sh
-after_script:
- - create_package.sh
