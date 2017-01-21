@@ -4,6 +4,9 @@ using Gpg.NET.Interop;
 
 namespace Gpg.NET
 {
+	/// <summary>
+	/// Represents a file-backed data buffer, used for sending data to GPG.
+	/// </summary>
 	public class FileGpgBuffer : GpgBuffer
 	{
 		private FileStream BackingFile { get; }
@@ -23,12 +26,13 @@ namespace Gpg.NET
 		{
 			// The current implementation doesn't work yet
 			throw new NotImplementedException();
-
+			/*
 			var stream = File.Open(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 			var fileDescriptor = stream.SafeFileHandle.DangerousGetHandle();
 			IntPtr handle;
 			ErrorHandler.Check(GpgMeWrapper.gpgme_data_new_from_fd(out handle, fileDescriptor));
 			return new FileGpgBuffer(handle, stream);
+			*/
 		}
 	}
 }

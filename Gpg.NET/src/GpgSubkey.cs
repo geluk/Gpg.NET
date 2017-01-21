@@ -21,7 +21,11 @@ namespace Gpg.NET
 		/// Gets a value indicating whether the subkey has been disabled.
 		/// </summary>
 		public bool Disabled { get; internal set; }
-		// TODO: figure this one out too
+		/// <summary>
+		/// Gets a value indicating whether the subkey is invalid.
+		/// This might have several reasons, for a example for the S/MIME backend,
+		/// it will be set during key listings if the key could not be validated due to missing certificates or unmatched policies. 
+		/// </summary>
 		public bool Invalid { get; internal set; }
 		/// <summary>
 		/// Gets a value indicating whether the subkey can be used as a recipient for encryption.
@@ -93,6 +97,9 @@ namespace Gpg.NET
 			Handle = handle;
 		}
 
+		/// <summary>
+		/// Returns a string representation of the current object.
+		/// </summary>
 		public override string ToString() =>
 			$"{KeyId}" +
 			$"{(Revoked ? " !REV" : "")}" +

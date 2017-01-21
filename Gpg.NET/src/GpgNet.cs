@@ -6,20 +6,56 @@ using Gpg.NET.Interop;
 
 namespace Gpg.NET
 {
+	/// <summary>
+	/// Used to configure and initialise the underlying GPGME library.
+	/// </summary>
 	public static class GpgNet
 	{
 		// TODO: Annotate these
+		/// <summary>
+		/// Gets the version of the GpgME library currently in use.
+		/// </summary>
 		public static string Version { get; private set; }
+		/// <summary>
+		/// Gets a value indicating whether the underlying GpgME library has been initialised.
+		/// </summary>
 		public static bool Initialised { get; private set; }
+		/// <summary>
+		/// Gets a list of GpgME engines available for use.
+		/// </summary>
 		public static IReadOnlyList<EngineInfo> AvailableEngines { get; private set; }
 
+		/// <summary>
+		/// Gets the default home directory for GPG.
+		/// </summary>
 		public static string Homedir { get; private set; }
+		/// <summary>
+		/// Gets the system configuration directory of GPG.
+		/// </summary>
 		public static string Sysconfdir { get; private set; }
+		/// <summary>
+		/// Gets the directory containing the GPG binaries.
+		/// </summary>
 		public static string Bindir { get; private set; }
+		/// <summary>
+		/// Gets the directory containing the GPG libraries.
+		/// </summary>
 		public static string Libdir { get; private set; }
+		/// <summary>
+		/// Gets the directory containing the GPG helper program files.
+		/// </summary>
 		public static string Libexecdir { get; private set; }
+		/// <summary>
+		/// Gets the directory containing shared data used by GPG.
+		/// </summary>
 		public static string Datadir { get; private set; }
+		/// <summary>
+		/// Gets the directory containing locale data used by GPG.
+		/// </summary>
 		public static string Localedir { get; private set; }
+		/// <summary>
+		/// Gets the path to the socket file used to connect to the GPG agent.
+		/// </summary>
 		public static string AgentSocket { get; private set; }
 
 		/// <summary>

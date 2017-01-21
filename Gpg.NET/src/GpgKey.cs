@@ -9,6 +9,9 @@ namespace Gpg.NET
 	public class GpgKey
 	{
 		internal IntPtr Handle { get; }
+		/// <summary>
+		/// Gets the key listing mode that was active when this key was retrieved.
+		/// </summary>
 		public GpgMeKeylistMode KeylistMode { get; internal set; }
 		/// <summary>
 		/// Gets a value indicating whether the key has been revoked by its owner.
@@ -22,7 +25,11 @@ namespace Gpg.NET
 		/// Gets a value indicating whether the key has been disabled.
 		/// </summary>
 		public bool Disabled { get; internal set; }
-		// TODO: Figure out what this means
+		/// <summary>
+		/// Gets a value indicating whether the key is invalid.
+		/// This might have several reasons, for a example for the S/MIME backend,
+		/// it will be set during key listings if the key could not be validated due to missing certificates or unmatched policies. 
+		/// </summary>
 		public bool Invalid { get; internal set; }
 		/// <summary>
 		/// Gets a value indicating whether the key can be used as a recipient for encryption.
@@ -88,6 +95,9 @@ namespace Gpg.NET
 			Handle = handle;
 		}
 
+		/// <summary>
+		/// Returns a string that represents the current object.
+		/// </summary>
 		public override string ToString() =>
 			$"{Fingerprint}" +
 			$"{(Revoked ? " !REV" : "")}" +

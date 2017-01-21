@@ -6,6 +6,10 @@ using Gpg.NET.Interop;
 
 namespace Gpg.NET
 {
+	/// <summary>
+	/// Represents a GPG context, which can be configured to use a specific protocol
+	/// and holds settings related to encryption and decryption.
+	/// </summary>
 	public class GpgContext : IDisposable
 	{
 		internal IntPtr Handle { get; }
@@ -98,6 +102,9 @@ namespace Gpg.NET
 			return FindKeys(pattern, privateOnly).FirstOrDefault();
 		}
 
+		/// <summary>
+		/// Releases the underlying GPGME context.
+		/// </summary>
 		public void Dispose()
 		{
 			GpgMeWrapper.gpgme_release(Handle);

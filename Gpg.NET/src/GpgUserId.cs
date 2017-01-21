@@ -32,6 +32,9 @@ namespace Gpg.NET
 		/// </summary>
 		public string Address { get; internal set; }
 
+		/// <summary>
+		/// Returns a string representation of the current object.
+		/// </summary>
 		public override string ToString()
 		{
 			return $"{Uid} ({Validity})";
