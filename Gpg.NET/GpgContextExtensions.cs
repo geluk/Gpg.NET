@@ -7,6 +7,9 @@ using System.Text;
 
 namespace Gpg.NET
 {
+	/// <summary>
+	/// Contains extension methods for use with a <see cref="GpgContext"/>
+	/// </summary>
 	public static class GpgContextExtensions
 	{
 		/// <summary>

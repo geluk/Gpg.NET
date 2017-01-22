@@ -66,7 +66,7 @@ namespace Gpg.NET
 		/// <param name="minLibraryVersion">
 		/// The minimum required version of GpgME. Set to null to disable this version check.
 		/// </param>
-		/// <param name="minGpgVersion">, 
+		/// <param name="minGpgVersion">
 		/// The minimum required version of Gpg. Set to null to disable this version check.
 		/// </param>
 		public static void Initialise(string installDir = null, string minLibraryVersion = "1.8.0", string minGpgVersion = "2.0.0")
