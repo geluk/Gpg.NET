@@ -61,6 +61,7 @@ namespace Gpg.NET
 		/// <summary>
 		/// Initialises the underlying GpgME library.
 		/// </summary>
+		/// <param name="dllPath">When set, overrides the default GpgME DLL location.</param>
 		/// <param name="installDir">When set, overrides the default GpgME installation directory.
 		/// This should point to the bin directory of the GPG installation directory.</param>
 		/// <param name="minLibraryVersion">
@@ -69,11 +70,17 @@ namespace Gpg.NET
 		/// <param name="minGpgVersion">
 		/// The minimum required version of Gpg. Set to null to disable this version check.
 		/// </param>
-		public static void Initialise(string installDir = null, string minLibraryVersion = "1.8.0", string minGpgVersion = "2.0.0")
+		public static void Initialise(string dllPath = null, string installDir = null, string minLibraryVersion = "1.8.0", string minGpgVersion = "2.0.0")
 		{
 			if (Initialised)
 			{
 				throw new InvalidOperationException("GpgME has already been initialised.");
+			}
+			if (dllPath != null)
+			{
+				// Manually load the GpgME DL from a custom path
+				// instead of letting Windows look for it.
+				Kernel32.Load(dllPath);
 			}
 
 			// Global flags should be set before initialisation

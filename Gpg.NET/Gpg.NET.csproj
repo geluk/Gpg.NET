@@ -63,6 +63,7 @@
     <Compile Include="src\Interop\AnsiCharPtrMarshaler.cs" />
     <Compile Include="src\Interop\GpgMeHelper.cs" />
     <Compile Include="src\GpgKeylistMode.cs" />
+    <Compile Include="src\Interop\Kernel32.cs" />
     <Compile Include="src\PublicKeyAlgorithm.cs" />
     <Compile Include="src\Interop\GpgMeKeySig.cs" />
     <Compile Include="src\Interop\GpgMeSigNotation.cs" />
