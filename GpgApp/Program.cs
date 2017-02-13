@@ -11,7 +11,7 @@ namespace GpgApp
 	{
 		static void Main(string[] args)
 		{
-			GpgNet.Initialise();
+			GpgNet.Initialise(@"C:\Program Files (x86)\GnuPG\bin\libgpgme-11.dll");
 			Console.WriteLine($"Started GpgME version {GpgNet.Version}");
 
 			Test0();
