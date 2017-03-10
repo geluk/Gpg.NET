@@ -24,7 +24,7 @@ namespace Gpg.NET.Interop
 			if (handle == IntPtr.Zero)
 			{
 				var error = Marshal.GetLastWin32Error();
-				throw new Exception($"Failed to load library {libraryName}. Erro code: {error}");
+				throw new Exception($"Failed to load library {libraryName}. Error code: {error}");
 			}
 		}
 	}
