@@ -87,11 +87,7 @@ namespace Gpg.NET
 		public GpgBuffer Encrypt(GpgBuffer plain, IEnumerable<GpgKey> recipients, EncryptFlags encryptFlags = EncryptFlags.None)
 		{
 			// Transform the recipient list into a list of GpgME key handles
-			IntPtr[] rcpHandles = null;
-			if(recipients != null)
-			{
-		        	rcpHandles = recipients.Select(rcp => rcp.Handle).ToArray();
-			}
+			var rcpHandles = recipients?.Select(rcp => rcp.Handle).ToArray();
 			var output = MemoryGpgBuffer.Create();
 			ErrorHandler.Check(GpgMeWrapper.gpgme_op_encrypt(Handle, rcpHandles, encryptFlags, plain.Handle, output.Handle));
 			output.Position = 0;
