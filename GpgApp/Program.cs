@@ -14,14 +14,54 @@ namespace GpgApp
 			GpgNet.Initialise(@"C:\Program Files (x86)\GnuPG\bin\libgpgme-11.dll");
 			Console.WriteLine($"Started GpgME version {GpgNet.Version}");
 
-			Test0();
+			//Test0();
 			//Test1();
+			Test2();
 			Console.WriteLine("Press any key to exit.");
 			Console.ReadKey();
+		}
 
-			while (true)
+		private static void Test2()
+		{
+
+			var helloWorld = "Hello World!";
+			Console.WriteLine(helloWorld);
+
+			var context = GpgContext.CreateContext();
+
+			context.KeylistMode = context.KeylistMode | GpgKeylistMode.WithSecret;
+			context.ArmorMode = GpgArmorMode.On;
+
+			// Print GPG keys
+			var keys = context.FindKeys().ToArray();
+			foreach (var key in keys)
 			{
-				Thread.Sleep(500);
+				Console.WriteLine(key.ToString());
+				Console.WriteLine($"\t{key.Uids.First()}");
+				foreach (var subkey in key.Subkeys)
+				{
+					Console.WriteLine($"\t{subkey}");
+				}
+			}
+
+
+			MemoryGpgBuffer helloBuffer = MemoryGpgBuffer.CreateFromString(helloWorld);
+			var encryptedBuffer = context.Encrypt(helloBuffer, keys[4]);
+			var encryptedByteBuffer = new byte[(int)encryptedBuffer.Length];
+			encryptedBuffer.Read(encryptedByteBuffer, 0, (int)encryptedBuffer.Length);
+			Console.WriteLine("========");
+			Console.WriteLine(Encoding.UTF8.GetString(encryptedByteBuffer));
+			Console.WriteLine("========");
+			encryptedBuffer.Position = 0;
+			var prop = new byte[2];
+
+			using (var decrypted = context.Decrypt(encryptedBuffer))
+			{
+				var decryptedByteBuffer = new byte[decrypted.Length];
+				encryptedBuffer.Position = 0;
+				var decryptedBuffer = context.Decrypt(encryptedBuffer);
+				decryptedBuffer.Read(decryptedByteBuffer, 0, decryptedByteBuffer.Length);
+				Console.WriteLine(Encoding.UTF8.GetString(decryptedByteBuffer));
 			}
 		}
 

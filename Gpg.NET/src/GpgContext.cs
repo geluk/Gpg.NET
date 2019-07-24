@@ -36,6 +36,22 @@ namespace Gpg.NET
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the ASCII armor mode currently in use by this <see cref="GpgContext"/>.
+		/// Converts the binary encrypted data to an ASCII representation. Default off.
+		/// </summary>
+		public GpgArmorMode ArmorMode
+		{
+			get
+			{
+				return GpgMeWrapper.gpgme_get_armor(Handle);
+			}
+			set
+			{
+				GpgMeWrapper.gpgme_set_armor(Handle, value);
+			}
+		}
+
 		internal GpgContext(IntPtr handle)
 		{
 			Handle = handle;
