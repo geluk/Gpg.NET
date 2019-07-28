@@ -75,6 +75,12 @@ namespace Gpg.NET.Interop
 
 		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
 		public static extern GpgMeError gpgme_set_keylist_mode(IntPtr ctx, GpgKeylistMode mode);
+		//		ASCII armor mode
+		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
+		public static extern void gpgme_set_armor(IntPtr ctx, GpgArmorMode yes);
+
+		[DllImport(GpgMeDll, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, CallingConvention = CallingConvention.Cdecl)]
+		public static extern GpgArmorMode gpgme_get_armor(IntPtr ctx);
 
 		// LISTING KEYS
 
